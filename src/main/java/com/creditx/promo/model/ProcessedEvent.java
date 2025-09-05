@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CPS_PROCESSED_EVENTS")
+@Table(name = "CPRS_PROCESSED_EVENTS")
 @Data
 @Builder
 @NoArgsConstructor

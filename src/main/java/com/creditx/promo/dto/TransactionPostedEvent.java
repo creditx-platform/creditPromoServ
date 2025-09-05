@@ -3,6 +3,8 @@ package com.creditx.promo.dto;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+import com.creditx.promo.model.TransactionType;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,11 +16,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TransactionPostedEvent {
     private Long transactionId;
-    private Long holdId;
+    private TransactionType type;
     private Long issuerAccountId;
     private Long merchantAccountId;
     private BigDecimal amount;
     private String currency;
     private String status;
-    private Instant postedAt;
+    private Instant createdAt;
 }

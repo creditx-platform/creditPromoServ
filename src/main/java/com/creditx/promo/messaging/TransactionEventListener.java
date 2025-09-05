@@ -8,7 +8,6 @@ import com.creditx.promo.constants.EventTypes;
 import com.creditx.promo.dto.TransactionPostedEvent;
 import com.creditx.promo.service.TransactionEventService;
 import com.creditx.promo.tracing.TransactionSpanTagger;
-import com.creditx.promo.util.EventValidationUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,18 @@ public class TransactionEventListener {
     public Consumer<Message<String>> transactionPosted() {
         return message -> {
             String payload = message.getPayload();
-            // TODO: Implemenet transaction posted handler
+            String eventType = message.getHeaders().getOrDefault(EventTypes.EVENT_TYPE_HEADER, "").toString();
+            if (!EventTypes.TRANSACTION_POSTED.equals(eventType)) {
+                log.debug("Ignoring event type {}", eventType);
+                return;
+            }
+            try {
+                TransactionPostedEvent event = objectMapper.readValue(payload, TransactionPostedEvent.class);
+                transactionSpanTagger.tagTransactionId(event.getTransactionId());
+                transactionEventService.processTransactionPosted(event);
+            } catch (Exception e) {
+                log.error("Failed to process transaction.posted message", e);
+            }
         };
     }
 }

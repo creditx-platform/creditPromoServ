@@ -18,7 +18,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "CPS_OUTBOX_EVENTS")
+@Table(name = "CPRS_OUTBOX_EVENTS")
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class OutboxEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "outbox_seq_gen")
-    @SequenceGenerator(name = "outbox_seq_gen", sequenceName = "CPS_OUTBOX_SEQ", allocationSize = 1)
+    @SequenceGenerator(name = "outbox_seq_gen", sequenceName = "CPRS_OUTBOX_SEQ", allocationSize = 1)
     @Column(name = "EVENT_ID")
     private Long eventId;
 
