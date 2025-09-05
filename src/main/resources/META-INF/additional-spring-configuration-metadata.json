@@ -1,0 +1,29 @@
+{
+    "properties": [
+        {
+            "name": "app.outbox.batch-size",
+            "type": "java.lang.String",
+            "description": "Outbox batch size"
+        },
+        {
+            "name": "app.outbox.publish-interval",
+            "type": "java.lang.String",
+            "description": "Outbox publish interval"
+        },
+        {
+            "name": "app.outbox.binding",
+            "type": "java.lang.String",
+            "description": "Kafka topic name abstracted as Outbox binding name"
+        },
+        {
+            "name": "app.creditmain.url",
+            "type": "java.lang.String",
+            "description": "URL of main service"
+        },
+        {
+            "name": "api.doc.show-internal",
+            "type": "java.lang.String",
+            "description": "Should show internal api doc?"
+        }
+    ]
+}
