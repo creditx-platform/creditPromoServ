@@ -20,11 +20,11 @@ public class OpenApiConfig {
         private boolean showInternal;
 
     @Bean
-        public OpenAPI postingServiceOpenAPI() {
+        public OpenAPI promoServiceOpenAPI() {
                 OpenAPI api = new OpenAPI()
                                 .info(new Info()
-                                                .title("CreditX Posting Service API")
-                                                .description("Credit settlement and posting APIs")
+                                                .title("CreditX Promotion Service API")
+                                                .description("Promotion evaluation and cashback processing APIs")
                                                 .version("v1")
                                                 .contact(new Contact().name("CreditX Platform Team").email("platform@creditx.local"))
                                                 .license(new License().name("Apache 2.0").url("https://www.apache.org/licenses/LICENSE-2.0")))
