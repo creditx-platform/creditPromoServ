@@ -1,7 +1,5 @@
 package com.creditx.promo.model;
 
-import java.time.Instant;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,37 +20,38 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Promotion {
-    @Id
-    @Column(name = "PROMO_ID", length = 36)
-    private String promoId;
 
-    @Column(name = "NAME", nullable = false, length = 150)
-    private String name;
+  @Id
+  @Column(name = "PROMO_ID", length = 36)
+  private String promoId;
 
-    @Column(name = "DESCRIPTION")
-    private String description;
+  @Column(name = "NAME", nullable = false, length = 150)
+  private String name;
 
-    @Column(name = "START_DATE", nullable = false)
-    private Instant startDate;
+  @Column(name = "DESCRIPTION")
+  private String description;
 
-    @Column(name = "EXPIRY_DATE", nullable = false)
-    private Instant expiryDate;
+  @Column(name = "START_DATE", nullable = false)
+  private Instant startDate;
 
-    @Lob
-    @Column(name = "ELIGIBILITY_RULES", nullable = false)
-    private String eligibilityRules;
+  @Column(name = "EXPIRY_DATE", nullable = false)
+  private Instant expiryDate;
 
-    @Lob
-    @Column(name = "REWARD_FORMULA", nullable = false)
-    private String rewardFormula;
+  @Lob
+  @Column(name = "ELIGIBILITY_RULES", nullable = false)
+  private String eligibilityRules;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS", nullable = false, length = 20)
-    private PromotionStatus status;
+  @Lob
+  @Column(name = "REWARD_FORMULA", nullable = false)
+  private String rewardFormula;
 
-    @Column(name = "CREATED_AT", insertable = false, updatable = false)
-    private Instant createdAt;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "STATUS", nullable = false, length = 20)
+  private PromotionStatus status;
 
-    @Column(name = "UPDATED_AT", insertable = false, updatable = false)
-    private Instant updatedAt;
+  @Column(name = "CREATED_AT", insertable = false, updatable = false)
+  private Instant createdAt;
+
+  @Column(name = "UPDATED_AT", insertable = false, updatable = false)
+  private Instant updatedAt;
 }

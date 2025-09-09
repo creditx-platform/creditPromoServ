@@ -1,9 +1,10 @@
 package com.creditx.promo.service;
 
-import java.util.List;
 import com.creditx.promo.dto.TransactionPostedEvent;
 import com.creditx.promo.model.Promotion;
+import java.util.List;
 
 public interface PromoEvaluatorService {
-    List<Promotion> evaluate(TransactionPostedEvent event, List<Promotion> activePromotions);
+
+  List<Promotion> evaluate(TransactionPostedEvent event, List<Promotion> activePromotions);
 }

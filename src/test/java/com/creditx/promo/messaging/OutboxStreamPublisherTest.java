@@ -20,47 +20,48 @@ import org.springframework.test.util.ReflectionTestUtils;
 @ExtendWith(MockitoExtension.class)
 class OutboxStreamPublisherTest {
 
-    @Mock
-    private StreamBridge streamBridge;
+  @Mock
+  private StreamBridge streamBridge;
 
-    @InjectMocks
-    private OutboxStreamPublisher outboxStreamPublisher;
+  @InjectMocks
+  private OutboxStreamPublisher outboxStreamPublisher;
 
-    @BeforeEach
-    void setup() {
-        ReflectionTestUtils.setField(outboxStreamPublisher, "bindingName", "test-binding");
-    }
+  @BeforeEach
+  void setup() {
+    ReflectionTestUtils.setField(outboxStreamPublisher, "bindingName", "test-binding");
+  }
 
-    @Test
-    void shouldPublishWithKeyAndPayload() {
-        String key = "test-key";
-        String payload = "{\"name\":\"test-payload\", \"value\":100}";
-        String eventType = "transaction.posted";
-    @SuppressWarnings("unchecked")
-        ArgumentCaptor<Message<String>> messageCaptor = ArgumentCaptor.forClass(Message.class);
-        outboxStreamPublisher.publish(key, payload, eventType);
-        verify(streamBridge, times(1)).send(org.mockito.ArgumentMatchers.eq("test-binding"), messageCaptor.capture());
-        Message<String> sentMessage = messageCaptor.getValue();
-        assertThat(sentMessage.getPayload()).isEqualTo(payload);
-        assertThat(sentMessage.getHeaders().get("key")).isEqualTo(key);
-        assertThat(sentMessage.getHeaders().get("eventType")).isEqualTo(eventType);
-    }
+  @Test
+  void shouldPublishWithKeyAndPayload() {
+    String key = "test-key";
+    String payload = "{\"name\":\"test-payload\", \"value\":100}";
+    String eventType = "transaction.posted";
+    @SuppressWarnings("unchecked") ArgumentCaptor<Message<String>> messageCaptor = ArgumentCaptor.forClass(
+        Message.class);
+    outboxStreamPublisher.publish(key, payload, eventType);
+    verify(streamBridge, times(1)).send(org.mockito.ArgumentMatchers.eq("test-binding"),
+        messageCaptor.capture());
+    Message<String> sentMessage = messageCaptor.getValue();
+    assertThat(sentMessage.getPayload()).isEqualTo(payload);
+    assertThat(sentMessage.getHeaders().get("key")).isEqualTo(key);
+    assertThat(sentMessage.getHeaders().get("eventType")).isEqualTo(eventType);
+  }
 
-    @Test
-    void shouldNotPublishWithoutKey() {
-        outboxStreamPublisher.publish(null, "{\"name\":\"test\"}", "transaction.posted");
-        verify(streamBridge, never()).send(anyString(), anyString());
-    }
+  @Test
+  void shouldNotPublishWithoutKey() {
+    outboxStreamPublisher.publish(null, "{\"name\":\"test\"}", "transaction.posted");
+    verify(streamBridge, never()).send(anyString(), anyString());
+  }
 
-    @Test
-    void shouldNotPublishWithoutPayload() {
-        outboxStreamPublisher.publish("test-key", "", "transaction.posted");
-        verify(streamBridge, never()).send(anyString(), anyString());
-    }
+  @Test
+  void shouldNotPublishWithoutPayload() {
+    outboxStreamPublisher.publish("test-key", "", "transaction.posted");
+    verify(streamBridge, never()).send(anyString(), anyString());
+  }
 
-    @Test
-    void shouldNotPublishWithoutEventType() {
-        outboxStreamPublisher.publish("test-key", "{\"name\":\"test\"}", "");
-        verify(streamBridge, never()).send(anyString(), anyString());
-    }
+  @Test
+  void shouldNotPublishWithoutEventType() {
+    outboxStreamPublisher.publish("test-key", "{\"name\":\"test\"}", "");
+    verify(streamBridge, never()).send(anyString(), anyString());
+  }
 }
